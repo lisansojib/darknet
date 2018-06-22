@@ -1064,7 +1064,7 @@ void calc_anchors(char *datacfg, int num_of_clusters, int width, int height, int
 }
 #endif // OPENCV
 
-void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filename, float thresh,
+void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filename, char *outfilename, float thresh,
 				   float hier_thresh, int dont_show, int ext_output, int save_labels)
 {
     list *options = read_data_cfg(datacfg);
@@ -1124,9 +1124,9 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 		detection *dets = get_network_boxes(&net, im.w, im.h, thresh, hier_thresh, 0, 1, &nboxes, letterbox);
 		if (nms) do_nms_sort(dets, nboxes, l.classes, nms);
 		draw_detections_v3(im, dets, nboxes, thresh, names, alphabet, l.classes, ext_output);
-        save_image(im, "predictions");
+        save_image(im, outfilename);
 		if (!dont_show) {
-			show_image(im, "predictions");
+			show_image(im, outfilename);
 		}
 
 		// pseudo labeling concept - fast.ai
@@ -1242,7 +1242,7 @@ void run_detector(int argc, char **argv)
 		if(strlen(weights) > 0)
 			if (weights[strlen(weights) - 1] == 0x0d) weights[strlen(weights) - 1] = 0;
     char *filename = (argc > 6) ? argv[6]: 0;
-    if(0==strcmp(argv[2], "test")) test_detector(datacfg, cfg, weights, filename, thresh, hier_thresh, dont_show, ext_output, save_labels);
+    if(0==strcmp(argv[2], "test")) test_detector(datacfg, cfg, weights, filename, out_filename, thresh, hier_thresh, dont_show, ext_output, save_labels);
     else if(0==strcmp(argv[2], "train")) train_detector(datacfg, cfg, weights, gpus, ngpus, clear, dont_show);
     else if(0==strcmp(argv[2], "valid")) validate_detector(datacfg, cfg, weights, outfile);
     else if(0==strcmp(argv[2], "recall")) validate_detector_recall(datacfg, cfg, weights);
