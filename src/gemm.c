@@ -133,8 +133,8 @@ int is_fma_avx() {
 	static int result = -1;
 	if (result == -1) {
 		result = simd_detect_x86(AVXFlag);
-		if (result == 1) printf(" Used AVX \n");
-		else printf(" Not used AVX \n");
+		//if (result == 1) printf(" Used AVX \n");
+		//else printf(" Not used AVX \n");
 	}
 	return result;
 }
