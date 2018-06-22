@@ -812,7 +812,7 @@ network parse_network_cfg_custom(char *filename, int batch)
     free_list(sections);
     net.outputs = get_network_output_size(net);
     net.output = get_network_output(net);
-	printf("Total BFLOPS %5.3f \n", bflops);
+	//printf("Total BFLOPS %5.3f \n", bflops);
     if(workspace_size){
         //printf("%ld\n", workspace_size);
 #ifdef GPU
